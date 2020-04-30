@@ -47,6 +47,17 @@ LRESULT CALLBACK WndProc(HWND hwnd, UINT msg, WPARAM wParam, LPARAM lParam);
 {
     switch(msg)
     {
+         case WM_CREATE:
+             CreateWindow(
+                 "The button class name",
+                 "Windows Aero.button",
+                  WS_VISIBLE | WS_CHILD,
+                  100, 100, 25, 10,
+                  hwnd,
+                  (HMENU)1,
+                  nullptr,
+                  nullptr);
+         break;
          case WM_CLOSE:
              DrstroyWindow(hwnd);
              break;
