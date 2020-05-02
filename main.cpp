@@ -1,4 +1,6 @@
 #include <windows.h>
+#define BUTTON_ID 1
+#define MONTHCALID 2
 
 LRESULT CALLBACK WndProc(HWND, UINT, WPARAM, LPARAM);
 
@@ -42,3 +44,67 @@ int WINAPI WinMain(HINSTANCE hInst, HINSTANCE, LPSTR, int nCmsShow)
         DispatchMessage(&msg);
     }
 }
+
+LRESULT CALLBACK WndProc(HWND hwnd, UINT uMsg, WPARAM wParam, LPARAM lParam)
+{
+    switch(uMsg)
+    {
+         case WM_CREATE:
+         {
+             RECT rc = {100 ,100,190,160};  
+             CreateWindowEx(0,
+                            WC_BUTTON,
+                            "Button example",
+                            WS_VISIBLE | WS_CHILD,
+                            10, 10, 100, 500,
+                            hwnd,
+                            (HMENU) BUTTON_ID,
+                            nullptr,
+                            nullptr);
+
+             CreateWindowEx(0,
+                            MONTHCAL_CLASS,
+                            0,
+                            WS_VISIBLE | WS_CHILD,
+                            100,
+                            100,
+                            rc.left, 
+                            rc.top, 
+                            rc.right, 
+                            rc.bottom,
+                            hwnd,
+                            (HMENU)MONTHCALID,
+                            nullptr,
+                            nullptr);
+         }
+         break;
+         
+         case WM_COMMAND:
+              if(LOWORD(wParam) == BUTTON_ID)
+              {
+                   MessageBox(NULL,
+                              "Clicked button Button example",
+                              "Noftication",
+                              MB_ICONEXCLAMATION | MB_OK);
+              }
+              break;
+
+         case WM_CLOSE:
+             DestroyWindow(hwnd);
+             break;
+         case WM_DESTROY:
+             PodtQuitMessage(0);
+             break;
+         default:
+             return DefWindowProc(hwnd, uMsg, wParam, lParam);
+         
+         return 0;
+}
+          
+           
+
+                            
+                            
+   
+
+          
